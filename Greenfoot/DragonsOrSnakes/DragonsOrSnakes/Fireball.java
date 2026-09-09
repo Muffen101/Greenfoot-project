@@ -25,16 +25,27 @@ public class Fireball extends Actor
         move(4);
         
         List<Dragon> dragons = getIntersectingObjects(Dragon.class);
-        
-        for(int i=dragons.size()-1; i >= 0; i--) {
-            getWorld().removeObject(dragons.get(i)); // List / arrays indexes are zero based (0,1,2,3,4)
-        }
-        
-        if (dragons.size() > 0) {
-            GreenfootSound dieEffect = new GreenfootSound("An Enemy has been Slain (Nr. 1  Classic League of Legends Announcer) - Sound Effect for editing.mp3");
-            getWorld().removeObject(this);
+        if (dragons.size() > 0)
+        {
+            MyWorld world = (MyWorld) getWorld();
+            
+            GreenfootSound dieEffect = new GreenfootSound("An Enemy has been Slain (Nr. 1  Classic League of Legends Announcer) - Sound Effect for editing.mp3"); //Play sound effect of drying dragon
+            dieEffect.setVolume(5);
             dieEffect.play();
+            
+            for (int i = dragons.size() - 1; i >= 0; i--)
+            {
+                world.dragonKilled(); //increase the score and spawn new dragon
+                world.removeObject(dragons.get(i)); //removes the dead dragon
+            }
+            
+            world.removeObject(this); //removes the fireball object once at the end
+            return; //stops act
         }
         
+        if (isAtEdge())
+        {
+            getWorld().removeObject(this);
+        }
     }
 }

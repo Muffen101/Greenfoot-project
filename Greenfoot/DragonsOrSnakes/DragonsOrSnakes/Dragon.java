@@ -13,4 +13,11 @@ public class Dragon extends Actor
         turnTowards(w.getX(), w.getY());
         move(1);
     }
+    public Dragon()
+    {
+        
+    }
+    
+    
+    
 }

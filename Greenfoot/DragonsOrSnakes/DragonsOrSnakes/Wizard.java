@@ -14,23 +14,13 @@ public class Wizard extends Actor
     private int cooldown = MAX_COOLDOWN;
     
     
-    public void act() {
-        cooldown--;  
+    public void act() 
+    {
+            cooldown--;  
        
-        Dragon d = getNearestDragon();
+            move(); //handling the users movement input
+            shoot(); //handles shooting
         
-        move();
-        if (Greenfoot.isKeyDown("Space")) {
-            if (d != null && cooldown <= 0)
-            {
-            GreenfootSound shootEffect = new GreenfootSound ("ShortRasenganSoundEffect.mp3");
-            shootEffect.play();
-            Fireball f = new Fireball(d);
-        
-            getWorld().addObject(f,this.getX(), this.getY());
-            cooldown = MAX_COOLDOWN;
-            }
-        }    
     }   
     
     private void move(){
@@ -45,6 +35,24 @@ public class Wizard extends Actor
         }   
         if (Greenfoot.isKeyDown("A")) {
             setLocation(getX() - 4, getY());
+        }
+    }
+    
+    private void shoot()
+    {
+        Dragon d = getNearestDragon();
+        if (Greenfoot.isKeyDown("Space")) 
+        {
+            if (d != null && cooldown <= 0)
+            {
+            GreenfootSound shootEffect = new GreenfootSound ("D&D Magic Fireball Sound Effect.mp3");
+            shootEffect.setVolume(5);
+            shootEffect.play();
+            Fireball f = new Fireball(d);
+        
+            getWorld().addObject(f,this.getX(), this.getY());
+            cooldown = MAX_COOLDOWN;
+            }
         }
     }
     
@@ -65,7 +73,6 @@ public class Wizard extends Actor
         
         return nearest;
     }
-    
     
     private double distance(Actor a) {
         return Math.sqrt(
