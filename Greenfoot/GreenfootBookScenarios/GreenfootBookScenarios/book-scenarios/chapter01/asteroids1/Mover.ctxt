@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.params=
+comment0.target=Mover()
+comment1.params=
+comment1.target=void\ move()
+comment1.text=\r\n\ Move\ forward\ one\ step.\r\n
+comment2.params=x\ y
+comment2.target=void\ setLocation(double,\ double)
+comment3.params=x\ y
+comment3.target=void\ setLocation(int,\ int)
+numComments=4
