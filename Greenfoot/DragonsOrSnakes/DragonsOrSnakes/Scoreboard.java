@@ -9,6 +9,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Scoreboard extends Actor
 {
     private int score = 0;
+    private int health = 100;
     
     public Scoreboard()
     {
@@ -21,9 +22,16 @@ public class Scoreboard extends Actor
         updateImage();
     }
     
+    public void setHealth(int newHealth)
+    {
+        this.health = Math.max(0, newHealth); //not allowing health to display below 0
+        updateImage();
+    }
+    
     private void updateImage()
     {
-        GreenfootImage img = new GreenfootImage("Dragon Kills: " + score, 24, Color.WHITE, Color.BLACK);
+        String text = "Dragon Kills: " + score + " | HP: " + health + "/100";
+        GreenfootImage img = new GreenfootImage(text, 18, Color.WHITE, Color.BLACK);
         setImage(img);
     }
     
