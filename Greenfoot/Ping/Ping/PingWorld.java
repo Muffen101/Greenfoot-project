@@ -24,11 +24,11 @@ public class PingWorld extends World
             background.setColor(Color.BLACK);
             // Create a new world with WORLD_WIDTHxWORLD_HEIGHT cells with a cell size of 1x1 pixels.
             addObject(new Ball(), WORLD_WIDTH/2, WORLD_HEIGHT/2);
-            addObject(new DownPaddle(100,20), 60, WORLD_HEIGHT - 50);
+            addObject(new Paddle(100,20), 60, WORLD_HEIGHT - 50);
             
             int randomX = Greenfoot.getRandomNumber(WORLD_WIDTH);
             int randomY = 50 + Greenfoot.getRandomNumber(400);
-            addObject(new Paddle(80,15), randomX, randomY); //adds self moving paddle at a random height between Y = 50 and 450
+            addObject(new MiddlePaddle(80,15), randomX, randomY); //adds self moving paddle at a random height between Y = 50 and 450
             
         }
         else

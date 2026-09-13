@@ -45,7 +45,7 @@ public class Ball extends Actor
      */
     public void act() 
     {
-        if (delay > 0)
+        if (delay > 0) //wait out the delay timer before moving
         {
             delay--;
         }
@@ -83,25 +83,34 @@ public class Ball extends Actor
         return (getY() >= getWorld().getHeight() - BALL_SIZE/2);
     }
     
+    private boolean shouldPassThrough()
+    {
+        return getRotation() <= 180;
+    }
+    
     /**
      * Checks for collision with any Paddle classes.
      * Then reverts in a vertical direction after being in contact.
      */
     private void checkBounceOffPaddle() 
     {
-        if (isTouching(Paddle.class))
+        if (isTouching(MiddlePaddle.class)) //checking MiddlePaddle first because MiddlePaddle extends Paddle
+        {
+            if (getRotation() > 180 && !hasBouncedVertically) 
+            {
+                revertVertically(); 
+            }
+        }
+        else if (isTouching(Paddle.class)) //self moving middle paddle collision
         {
             if (!hasBouncedVertically)
             {
                 revertVertically();
             }
         }
-        else if (isTouching(Paddle.class)) //self moving middle paddle collision
+        else
         {
-            if (getRotation() > 180 && !hasBouncedVertically) //ball rotate 180 degrees meaning up
-            {
-                revertVertically(); //if it is <= 180 it moves down and passes through
-            }
+            hasBouncedVertically = false;
         }
     }
 
@@ -137,13 +146,13 @@ public class Ball extends Actor
                 revertVertically();
             }
         }
-        else
+        /*else
         {
-            if (!isTouching(Paddle.class)) //resetting vertical bounce when its clear of ceiling and any paddles
+            if (!isTouching(MiddlePaddle.class)) //resetting vertical bounce when its clear of ceiling and any paddles
             {
                 hasBouncedVertically = false;
             }
-        }
+        }*/
     }
 
     /**

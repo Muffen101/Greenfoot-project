@@ -1,6 +1,5 @@
 import greenfoot.*;
 
-
 /**
  * A paddle is an object that goes back and forth. Though it would be nice if balls would bounce of it.
  * 
@@ -9,9 +8,9 @@ import greenfoot.*;
  */
 public class Paddle extends Actor
 {
-    private int width; //change to protected?
-    private int height; //change to protected?
-    private int dx; //change to protected?
+    protected int width; //change to protected?
+    protected int height; //change to protected?
+    protected int dx; //change to protected?
 
     /**
      * Constructs a new paddle with the given dimensions.
@@ -20,7 +19,7 @@ public class Paddle extends Actor
     {
         this.width = width;
         this.height = height;
-        dx = 2;
+        dx = 4;
         createImage();
     }
 
@@ -30,35 +29,28 @@ public class Paddle extends Actor
      */
     public void act() 
     {
-        setLocation(getX() + dx, getY()); //moves paddle back and forth horizontally
-        changeDirection();
+        move();
     }    
 
-    private void changeDirection()
+    private void move() //handles movement of the paddle
     {
-        if(getX() + width/2 >= getWorld().getWidth() || getX() - width/2 <= 0)
+        if (Greenfoot.isKeyDown("Left") || Greenfoot.isKeyDown("A"))
         {
-            dx = dx * -1;
+            setLocation(getX()- dx, getY());
+        }
+        if (Greenfoot.isKeyDown("Right") || Greenfoot.isKeyDown("D"))
+        {
+            setLocation(getX()+ dx, getY());
         }
     }
     
-    private void respawnOnSide(int xPosition)
-    {
-        int minY = 50; //keeps the random Y height between 50 and 450
-        int maxY = getWorld().getHeight() - 250;
-        int randomY = minY + Greenfoot.getRandomNumber(maxY - minY);
-        
-        setLocation(xPosition, randomY);
-    }
-
     /**
      * Creates and sets an image for the paddle, the image will have the same dimensions as the paddles width and height.
      */
     private void createImage()
     {
-        GreenfootImage image = new GreenfootImage(width, height);
-        image.setColor(Color.BLACK);
-        image.fill();
+        GreenfootImage image = new GreenfootImage("woodplank.png");
+        image.scale(100, 40); //determining the size of the image of the paddle
         setImage(image);
     }
 }
