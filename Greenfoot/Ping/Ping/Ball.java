@@ -90,18 +90,18 @@ public class Ball extends Actor
     
     /**
      * Checks for collision with any Paddle classes.
-     * Then reverts in a vertical direction after being in contact.
+     * Then reverts in a vertical direction after being in contact, and handles bounce/pass through logic.
      */
     private void checkBounceOffPaddle() 
     {
         if (isTouching(MiddlePaddle.class)) //checking MiddlePaddle first because MiddlePaddle extends Paddle
         {
-            if (getRotation() > 180 && !hasBouncedVertically) 
+            if (getRotation() > 180 && !hasBouncedVertically) //if getRotation() > 180 then the ball moves upwards. If rotation is <= 180 then its moving downwards and ball passes through
             {
                 revertVertically(); 
             }
         }
-        else if (isTouching(Paddle.class)) //self moving middle paddle collision
+        else if (isTouching(Paddle.class)) //checks the players paddle and that the ball always bounces off the players paddle no matter what direction the ball comes from
         {
             if (!hasBouncedVertically)
             {
@@ -146,13 +146,6 @@ public class Ball extends Actor
                 revertVertically();
             }
         }
-        /*else
-        {
-            if (!isTouching(MiddlePaddle.class)) //resetting vertical bounce when its clear of ceiling and any paddles
-            {
-                hasBouncedVertically = false;
-            }
-        }*/
     }
 
     /**
