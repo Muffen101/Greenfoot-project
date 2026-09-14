@@ -23,27 +23,31 @@ public class MiddlePaddle extends Paddle
      */
     public void act()
     {
-        setLocation(getX() + dx, getY());
+        setLocation(getX() + dx, getY()); //this method makes the paddle automatically move right
         checkPaddleTouchWall();
     }
     
-    private void checkPaddleTouchWall()
+    private void checkPaddleTouchWall() //once reached the right edge of the map, remove this one and spawn a new one back on the left side
     {
         if (getX() + width / 2 >= getWorld().getWidth())
         {
             PingWorld world = (PingWorld) getWorld();
-            world.removeObject(this);
-            world.addObject(new MiddlePaddle(100,20), 0, Greenfoot.getRandomNumber(200) + 100);
+            world.removeObject(this); //removing the instance from the world
+            world.addObject(new MiddlePaddle(100,20), 0, Greenfoot.getRandomNumber(200) + 100); //spawns the new paddle at x=0 and random Y position
         }
     }
     
+    /**
+     * Helper method to recalculate a safe random vertical spawn coordinate.
+     */
     private void respawnOnSide(int xPosition)
     {
-        int minY = 50;
-        int maxY = getWorld().getHeight() - 250; //check on this later!!!!!!!!!!
-        int randomY = minY + Greenfoot.getRandomNumber(maxY - minY);
+        int minY = 50; //avoids spawning too close to the top ceiling
+        int maxY = getWorld().getHeight() - 250; //keeps distance from the main players paddle
         
-        setLocation(xPosition, randomY);
+        int randomY = minY + Greenfoot.getRandomNumber(maxY - minY); //generate a random position inside the bounds
+        
+        setLocation(xPosition, randomY); 
     }
     
     private void createDefaultImage()

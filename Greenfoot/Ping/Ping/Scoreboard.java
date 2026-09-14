@@ -1,10 +1,8 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Scoreboard here.
+ * Displays score and current game level at the top of the screen
  * 
- * @author (your name) 
- * @version (a version number or a date)
  */
 public class Scoreboard extends Actor
 {
@@ -28,11 +26,14 @@ public class Scoreboard extends Actor
         updateImage();
     }
     
+    /**
+     * Redraws the score text graphic on the screen whenever score or level changes.
+     */
     private void updateImage()
     {
-        String text = "Bounces: " + score + " | Level: " + level;
-        GreenfootImage img = new GreenfootImage(text, 18, Color.WHITE, Color.BLACK);
-        setImage(img);
+        String text = "Bounces: " + score + " | Level: " + level; //format string output
+        GreenfootImage img = new GreenfootImage(text, 18, Color.WHITE, Color.BLACK); //this creates the layout for the image/text, by creating an image out of text
+        setImage(img); //applies the image to this
     }
     
     public int getScore()

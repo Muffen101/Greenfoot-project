@@ -52,7 +52,7 @@ public class Ball extends Actor
      */
     public void act() 
     {
-        if (delay > 0) //wait out the delay timer before moving
+        if (delay > 0) //give the player a short pause before the ball starts moving
         {
             delay--;
         }
@@ -90,7 +90,7 @@ public class Ball extends Actor
         return (getY() >= getWorld().getHeight() - BALL_SIZE/2);
     }
     
-    private boolean shouldPassThrough()
+    private boolean shouldPassThrough() //checks to see if the ball is viable to pass through the paddle at the specific angle
     {
         return getRotation() <= 180;
     }
@@ -105,21 +105,21 @@ public class Ball extends Actor
     {
         if (isTouching(MiddlePaddle.class)) //checking MiddlePaddle first because MiddlePaddle extends Paddle
         {
-            if (getRotation() > 180 && !hasBouncedVertically) //if getRotation() > 180 then the ball moves upwards. If rotation is <= 180 then its moving downwards and ball passes through
+            if (getRotation() > 180 && !hasBouncedVertically) //moving upward so bounce off the bottom of the middlepaddle
             {
                 revertVertically(false); 
             }
         }
         else if (isTouching(Paddle.class)) //checks the players paddle and that the ball always bounces off the players paddle no matter what direction the ball comes from
         {
-            if (!hasBouncedVertically) 
+            if (!hasBouncedVertically) //bounce off player paddle and score points
             {
                 revertVertically(true);
             }
         }
         else
         {
-            hasBouncedVertically = false;
+            hasBouncedVertically = false; //reset bounce lock once we leave the paddle
         }
     }
 
@@ -165,32 +165,32 @@ public class Ball extends Actor
     {
         if (isTouchingFloor())
         {
-            if(isTouchingFloor())
-            {
-                Greenfoot.setWorld(new GameOverWorld());
-                GreenfootSound gameOverSound = new GreenfootSound("spongebob-fail.mp3");
-                gameOverSound.setVolume(10);
-                gameOverSound.play();
-            }
-            else
+            Greenfoot.setWorld(new GameOverWorld());
+            GreenfootSound gameOverSound = new GreenfootSound("spongebob-fail.mp3");
+            gameOverSound.setVolume(10);
+            gameOverSound.play();
+            
+            /*else
             {
                 init();
                 setLocation(getWorld().getWidth() / 2, getWorld().getHeight() / 2); //FOR LATER WITH LIFES AND SUCH!!!!!!!!!!
-            }
+            }*/ //remove this? unneccesary??
         }
     }
 
     /**
      * Bounces the ball back from a vertical surface.
+     * Reverts horizontal direction (left/right wall hits).
+     * Calculates the return angle and plays a bounce sound.
      */
     private void revertHorizontally()
     {
-        int randomness = Greenfoot.getRandomNumber(BOUNCE_DEVIANCE_MAX)- BOUNCE_DEVIANCE_MAX / 2;
-        setRotation((180 - getRotation()+ randomness + 360) % 360);
-        hasBouncedHorizontally = true;
+        int randomness = Greenfoot.getRandomNumber(BOUNCE_DEVIANCE_MAX)- BOUNCE_DEVIANCE_MAX / 2; //picks a small random number between -2 and +2 degrees
+        setRotation((180 - getRotation()+ randomness + 360) % 360); //mirror the rotation horizontal angle (180-current) and adds a small random variance so the ball doesn't get stuck in an endless angle loop
+        hasBouncedHorizontally = true; //locks horizontal bounce until the ball exits the side edge
         
         GreenfootSound contactSound = new GreenfootSound("bo-womp.mp3");
-        contactSound.setVolume(10);
+        contactSound.setVolume(10); //adjusted the volume to the tester because it was too loud
         contactSound.play();
         
         /*PingWorld world = (PingWorld) getWorld();
@@ -198,22 +198,22 @@ public class Ball extends Actor
     }
 
     /**
-     * Bounces the bal back from a horizontal surface.
+     * Bounces the bal lback from a horizontal surface.
      */
     private void revertVertically(boolean countScore)
     {
         int randomness = Greenfoot.getRandomNumber(BOUNCE_DEVIANCE_MAX)- BOUNCE_DEVIANCE_MAX / 2;
         setRotation((360 - getRotation()+ randomness + 360) % 360);
-        hasBouncedVertically = true;
+        hasBouncedVertically = true; //lock vertical bounce so collision isn't triggered twice on the same bounce
         
         GreenfootSound contactSound = new GreenfootSound("bo-womp.mp3");
-        contactSound.setVolume(10);
+        contactSound.setVolume(10); //adjusted the volume to the tester because it was too loud
         contactSound.play();
         
-        if (countScore)
+        if (countScore) //notifies the world to update the score and ball speed if hitting the players/main paddle
         {
             PingWorld world = (PingWorld) getWorld();
-            this.speed = world.ballBounced();
+            this.speed = world.ballBounced(); //request updated ball speed from GameManager
         }
     }
 
@@ -226,7 +226,7 @@ public class Ball extends Actor
         delay = DELAY_TIME;
         hasBouncedHorizontally = false;
         hasBouncedVertically = false;
-        setRotation(Greenfoot.getRandomNumber(STARTING_ANGLE_WIDTH)+STARTING_ANGLE_WIDTH/2);
+        setRotation(Greenfoot.getRandomNumber(STARTING_ANGLE_WIDTH)+STARTING_ANGLE_WIDTH/2); //launches the ball downwards at a random angled direction
     }
 
 }

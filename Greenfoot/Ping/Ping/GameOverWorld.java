@@ -1,10 +1,9 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class GameOverWorld here.
+ * Game over screen shown when the ball drops past the player paddle.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * 
  */
 public class GameOverWorld extends World
 {

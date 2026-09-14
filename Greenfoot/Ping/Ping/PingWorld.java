@@ -3,6 +3,7 @@ import greenfoot.*;
 
 /**
  * The Ping World is where Balls and Paddles meet to play pong.
+ * Main game world setup for objects, manager and scoreboard.
  * 
  * @author The teachers 
  * @version 1
@@ -23,10 +24,9 @@ public class PingWorld extends World
         {
             scoreboard = new Scoreboard(); //adds scoreboard top left
             addObject(scoreboard, 120, 30);
+            
             gameManager = new GameManager(scoreboard); //initializes GameManager with scoreboard
             
-            /*GreenfootImage background = getBackground();
-            background.setColor(Color.BLACK);*/
             Ball ball = new Ball();
             ball.setGameManager(gameManager);
     
@@ -34,6 +34,7 @@ public class PingWorld extends World
             addObject(ball, WORLD_WIDTH/2, WORLD_HEIGHT/2);
             addObject(new Paddle(100,20), 60, WORLD_HEIGHT - 50);
             
+            //spawn middle self moving paddle at a random Y position between 50 and 450
             int randomX = Greenfoot.getRandomNumber(WORLD_WIDTH);
             int randomY = 50 + Greenfoot.getRandomNumber(400);
             addObject(new MiddlePaddle(80,15), randomX, randomY); //adds self moving paddle at a random height between Y = 50 and 450
@@ -51,7 +52,7 @@ public class PingWorld extends World
             return gameManager.ballBounced();
         }
         
-        return ballBounced();
+        return 2; //returning default speed to 2
     }
     
     public GameManager getGameManager()

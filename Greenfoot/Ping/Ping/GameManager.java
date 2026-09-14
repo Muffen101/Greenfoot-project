@@ -1,8 +1,7 @@
 /**
- * Write a description of class GameManager here.
+ * Tracks bounce counts, updates the scoreboard and speeds up the ball every 5 bounces made on the players paddle.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * 
  */
 public class GameManager  
 {
@@ -21,31 +20,35 @@ public class GameManager
         this.gameIsRunning = true;
     }
     
+    /**
+     * Called when the ball hits the players paddle.
+     * Increments score and updates ball speed every 5 bounces.
+     */
     public int ballBounced()
     {
-        if (!gameIsRunning)
+        if (!gameIsRunning) //don't modify scores if game is paused or ended
         {
             return currentSpeed;
         }
-        totalBounces++; //adds 1 to total score
-        bounceCounter++; //adds 1 to the counter from 1 to 10
+        totalBounces++; //adds to the main score
+        bounceCounter++; //adds to the counted tracker towards the next level speed boost from 0 to 10
         
-        if (scoreboard != null)
+        if (scoreboard != null) //sends updated score to text display
         {
-            scoreboard.setScore(totalBounces); //method in scoreboard!
+            scoreboard.setScore(totalBounces); 
         }
         
-        if (bounceCounter == 10)
+        if (bounceCounter == 5) //checks if player has completed the amount of bounces
         {
             currentSpeed++; //adds 1 in speed
             bounceCounter = 0; //reset counter to 0 so we count 10 more bounces
             
             if (scoreboard != null)
             {
-                scoreboard.setLevel(currentSpeed - 1); 
+                scoreboard.setLevel(currentSpeed - 1); //level 1 starts at speed 2, so level = speed - 1
             }
         }
-        return currentSpeed;
+        return currentSpeed; //return speed value back to Ball class
     }
     
     public int getSpeed()

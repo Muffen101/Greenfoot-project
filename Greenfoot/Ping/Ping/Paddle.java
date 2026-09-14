@@ -34,7 +34,7 @@ public class Paddle extends Actor
     /**
      * Task 1 - use left and right keys/move left and right using keys.
      */
-    private void move() //handles movement of the paddle
+    private void move() //handles movement of the paddle, the method supports both arrow keys and A/D keys
     {
         if (Greenfoot.isKeyDown("Left") || Greenfoot.isKeyDown("A"))
         {
