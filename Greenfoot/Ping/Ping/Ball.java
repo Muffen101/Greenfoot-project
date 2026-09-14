@@ -107,14 +107,14 @@ public class Ball extends Actor
         {
             if (getRotation() > 180 && !hasBouncedVertically) //if getRotation() > 180 then the ball moves upwards. If rotation is <= 180 then its moving downwards and ball passes through
             {
-                revertVertically(); 
+                revertVertically(false); 
             }
         }
         else if (isTouching(Paddle.class)) //checks the players paddle and that the ball always bounces off the players paddle no matter what direction the ball comes from
         {
-            if (!hasBouncedVertically)
+            if (!hasBouncedVertically) 
             {
-                revertVertically();
+                revertVertically(true);
             }
         }
         else
@@ -152,7 +152,7 @@ public class Ball extends Actor
         {
             if (! hasBouncedVertically)
             {
-                revertVertically();
+                revertVertically(false);
             }
         }
     }
@@ -192,12 +192,15 @@ public class Ball extends Actor
         GreenfootSound contactSound = new GreenfootSound("bo-womp.mp3");
         contactSound.setVolume(10);
         contactSound.play();
+        
+        /*PingWorld world = (PingWorld) getWorld();
+        this.speed = world.ballBounced();*/
     }
 
     /**
      * Bounces the bal back from a horizontal surface.
      */
-    private void revertVertically()
+    private void revertVertically(boolean countScore)
     {
         int randomness = Greenfoot.getRandomNumber(BOUNCE_DEVIANCE_MAX)- BOUNCE_DEVIANCE_MAX / 2;
         setRotation((360 - getRotation()+ randomness + 360) % 360);
@@ -206,6 +209,12 @@ public class Ball extends Actor
         GreenfootSound contactSound = new GreenfootSound("bo-womp.mp3");
         contactSound.setVolume(10);
         contactSound.play();
+        
+        if (countScore)
+        {
+            PingWorld world = (PingWorld) getWorld();
+            this.speed = world.ballBounced();
+        }
     }
 
     /**
@@ -219,13 +228,5 @@ public class Ball extends Actor
         hasBouncedVertically = false;
         setRotation(Greenfoot.getRandomNumber(STARTING_ANGLE_WIDTH)+STARTING_ANGLE_WIDTH/2);
     }
-    
-    /*private void gameOver()
-    { 
-        if(isTouchingFloor())       REMEMBER!
-        {
-            Greenfoot.stop();
-        }
-    }*/
 
 }
