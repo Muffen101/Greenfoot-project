@@ -8,10 +8,9 @@ import greenfoot.*;
  */
 public class Paddle extends Actor
 {
-    protected int width; //change to protected?
-    protected int height; //change to protected?
-    protected int dx; //change to protected?
-
+    protected int width; 
+    protected int height; 
+    protected int dx; 
     /**
      * Constructs a new paddle with the given dimensions.
      */

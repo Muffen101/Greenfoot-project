@@ -18,6 +18,7 @@ public class Ball extends Actor
     private boolean hasBouncedHorizontally;
     private boolean hasBouncedVertically;
     private int delay;
+    private GameManager gameManager;
 
     /**
      * Contructs the ball and sets it in motion!
@@ -26,6 +27,11 @@ public class Ball extends Actor
     {
         createImage();
         init();
+    }
+    
+    public void setGameManager(GameManager manager)
+    {
+        this.gameManager = manager;
     }
 
     /**
@@ -159,8 +165,18 @@ public class Ball extends Actor
     {
         if (isTouchingFloor())
         {
-            init();
-            setLocation(getWorld().getWidth() / 2, getWorld().getHeight() / 2);
+            if(isTouchingFloor())
+            {
+                Greenfoot.setWorld(new GameOverWorld());
+                GreenfootSound gameOverSound = new GreenfootSound("spongebob-fail.mp3");
+                gameOverSound.setVolume(10);
+                gameOverSound.play();
+            }
+            else
+            {
+                init();
+                setLocation(getWorld().getWidth() / 2, getWorld().getHeight() / 2); //FOR LATER WITH LIFES AND SUCH!!!!!!!!!!
+            }
         }
     }
 
@@ -172,6 +188,10 @@ public class Ball extends Actor
         int randomness = Greenfoot.getRandomNumber(BOUNCE_DEVIANCE_MAX)- BOUNCE_DEVIANCE_MAX / 2;
         setRotation((180 - getRotation()+ randomness + 360) % 360);
         hasBouncedHorizontally = true;
+        
+        GreenfootSound contactSound = new GreenfootSound("bo-womp.mp3");
+        contactSound.setVolume(10);
+        contactSound.play();
     }
 
     /**
@@ -182,6 +202,10 @@ public class Ball extends Actor
         int randomness = Greenfoot.getRandomNumber(BOUNCE_DEVIANCE_MAX)- BOUNCE_DEVIANCE_MAX / 2;
         setRotation((360 - getRotation()+ randomness + 360) % 360);
         hasBouncedVertically = true;
+        
+        GreenfootSound contactSound = new GreenfootSound("bo-womp.mp3");
+        contactSound.setVolume(10);
+        contactSound.play();
     }
 
     /**
@@ -195,5 +219,13 @@ public class Ball extends Actor
         hasBouncedVertically = false;
         setRotation(Greenfoot.getRandomNumber(STARTING_ANGLE_WIDTH)+STARTING_ANGLE_WIDTH/2);
     }
+    
+    /*private void gameOver()
+    { 
+        if(isTouchingFloor())       REMEMBER!
+        {
+            Greenfoot.stop();
+        }
+    }*/
 
 }

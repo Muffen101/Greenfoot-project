@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.target=Scoreboard
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Scoreboard\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=
+comment1.target=Scoreboard()
+comment2.params=newScore
+comment2.target=void\ setScore(int)
+comment3.params=newLevel
+comment3.target=void\ setLevel(int)
+comment4.params=
+comment4.target=void\ updateImage()
+comment5.params=
+comment5.target=int\ getScore()
+comment6.params=
+comment6.target=int\ getLevel()
+numComments=7

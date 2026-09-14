@@ -11,6 +11,8 @@ public class PingWorld extends World
 {
     private static final int WORLD_WIDTH = 500;
     private static final int WORLD_HEIGHT = 700;
+    private Scoreboard scoreboard;
+    private GameManager gameManager;
 
     /**
      * Constructor for objects of class PingWorld.
@@ -20,8 +22,13 @@ public class PingWorld extends World
         super(WORLD_WIDTH, WORLD_HEIGHT, 1); 
         if (gameStarted)
         {
+            scoreboard = new Scoreboard(); //adds scoreboard top left
+            addObject(scoreboard, 120, 30);
+            gameManager = new GameManager(scoreboard); //initializes GameManager with scoreboard
+            
             GreenfootImage background = getBackground();
             background.setColor(Color.BLACK);
+            
             // Create a new world with WORLD_WIDTHxWORLD_HEIGHT cells with a cell size of 1x1 pixels.
             addObject(new Ball(), WORLD_WIDTH/2, WORLD_HEIGHT/2);
             addObject(new Paddle(100,20), 60, WORLD_HEIGHT - 50);
