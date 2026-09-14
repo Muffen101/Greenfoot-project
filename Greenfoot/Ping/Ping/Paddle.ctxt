@@ -9,6 +9,7 @@ comment2.target=void\ act()
 comment2.text=\r\n\ Act\ -\ do\ whatever\ the\ Paddle\ wants\ to\ do.\ This\ method\ is\ called\ whenever\r\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\r\n
 comment3.params=
 comment3.target=void\ move()
+comment3.text=\r\n\ Task\ 1\ -\ use\ left\ and\ right\ keys/move\ left\ and\ right\ using\ keys.\r\n
 comment4.params=
 comment4.target=void\ createImage()
 comment4.text=\r\n\ Creates\ and\ sets\ an\ image\ for\ the\ paddle,\ the\ image\ will\ have\ the\ same\ dimensions\ as\ the\ paddles\ width\ and\ height.\r\n

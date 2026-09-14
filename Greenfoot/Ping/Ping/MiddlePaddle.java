@@ -1,7 +1,9 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class DownPaddle here.
+ * Write a description of class MiddlePaddle here.
+ * 
+ * Task 2 - added a self moving paddle that enters the world at a random position and moves horizontally. The paddle does respawn at a random height when removed.
  * 
  * @author (your name) 
  * @version (a version number or a date)
@@ -38,7 +40,7 @@ public class MiddlePaddle extends Paddle
     private void respawnOnSide(int xPosition)
     {
         int minY = 50;
-        int maxY = getWorld().getHeight() - 250;
+        int maxY = getWorld().getHeight() - 250; //check on this later!!!!!!!!!!
         int randomY = minY + Greenfoot.getRandomNumber(maxY - minY);
         
         setLocation(xPosition, randomY);
@@ -46,9 +48,10 @@ public class MiddlePaddle extends Paddle
     
     private void createDefaultImage()
     {
-        GreenfootImage image = new GreenfootImage(width, height);
-        image.setColor(Color.BLACK);
-        image.fill();
+        GreenfootImage image = new GreenfootImage("MoneyBill.png");
+        image.scale(130, 70); //check gap between ball and hitbox later!!!!!!!!!
+        //image.setColor(Color.BLACK);
+        ///image.fill();
         setImage(image);
     }
 }

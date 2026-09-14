@@ -33,9 +33,10 @@ public class Ball extends Actor
      */
     private void createImage()
     {
-        GreenfootImage ballImage = new GreenfootImage(BALL_SIZE,BALL_SIZE);
-        ballImage.setColor(Color.BLACK);
-        ballImage.fillOval(0, 0, BALL_SIZE, BALL_SIZE);
+        GreenfootImage ballImage = new GreenfootImage("Spongeball.png");
+        ballImage.scale(40,40);
+        //ballImage.setColor(Color.BLACK);
+        //ballImage.fillOval(0, 0, BALL_SIZE, BALL_SIZE);
         setImage(ballImage);
     }
 
@@ -91,6 +92,8 @@ public class Ball extends Actor
     /**
      * Checks for collision with any Paddle classes.
      * Then reverts in a vertical direction after being in contact, and handles bounce/pass through logic.
+     * 
+     * Task 3 - ball bounces off the self moving paddle from below and it passes through from the top.
      */
     private void checkBounceOffPaddle() 
     {

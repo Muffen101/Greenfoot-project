@@ -32,6 +32,9 @@ public class Paddle extends Actor
         move();
     }    
 
+    /**
+     * Task 1 - use left and right keys/move left and right using keys.
+     */
     private void move() //handles movement of the paddle
     {
         if (Greenfoot.isKeyDown("Left") || Greenfoot.isKeyDown("A"))
@@ -49,8 +52,8 @@ public class Paddle extends Actor
      */
     private void createImage()
     {
-        GreenfootImage image = new GreenfootImage("woodplank.png");
-        image.scale(100, 40); //determining the size of the image of the paddle
+        GreenfootImage image = new GreenfootImage("PLANKton.png");
+        image.scale(150, 60); //determining the size of the image of the paddle
         setImage(image);
     }
 }
