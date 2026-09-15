@@ -41,8 +41,6 @@ public class Ball extends Actor
     {
         GreenfootImage ballImage = new GreenfootImage("Spongeball.png");
         ballImage.scale(40,40);
-        //ballImage.setColor(Color.BLACK);
-        //ballImage.fillOval(0, 0, BALL_SIZE, BALL_SIZE);
         setImage(ballImage);
     }
 
@@ -160,16 +158,17 @@ public class Ball extends Actor
     /**
      * Check to see if the ball should be restarted.
      * If touching the floor the ball is restarted in initial position and speed.
+     * 
      */
     private void checkRestart()
     {
         if (isTouchingFloor())
         {
-            Greenfoot.setWorld(new GameOverWorld());
             GreenfootSound gameOverSound = new GreenfootSound("spongebob-fail.mp3");
-            gameOverSound.setVolume(10);
+            gameOverSound.setVolume(100);
             gameOverSound.play();
             
+            Greenfoot.setWorld(new GameOverWorld());
             /*else
             {
                 init();
@@ -190,7 +189,7 @@ public class Ball extends Actor
         hasBouncedHorizontally = true; //locks horizontal bounce until the ball exits the side edge
         
         GreenfootSound contactSound = new GreenfootSound("bo-womp.mp3");
-        contactSound.setVolume(10); //adjusted the volume to the tester because it was too loud
+        contactSound.setVolume(100); //adjusted the volume to the tester because it was too loud
         contactSound.play();
         
         /*PingWorld world = (PingWorld) getWorld();
@@ -207,7 +206,7 @@ public class Ball extends Actor
         hasBouncedVertically = true; //lock vertical bounce so collision isn't triggered twice on the same bounce
         
         GreenfootSound contactSound = new GreenfootSound("bo-womp.mp3");
-        contactSound.setVolume(10); //adjusted the volume to the tester because it was too loud
+        contactSound.setVolume(100); //adjusted the volume to the tester because it was too loud
         contactSound.play();
         
         if (countScore) //notifies the world to update the score and ball speed if hitting the players/main paddle

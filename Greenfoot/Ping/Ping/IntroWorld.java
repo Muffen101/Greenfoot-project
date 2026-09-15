@@ -16,9 +16,8 @@ public class IntroWorld extends World
      */
     public IntroWorld()
     {
-        super(WORLD_WIDTH, WORLD_HEIGHT, 1); 
-        
-        //GreenfootImage background = getBackground();
+        super(WORLD_WIDTH, WORLD_HEIGHT, 1);
+        setBackground("ChumBucketStartCover.jpg");
         //background.setColor(Color.BLACK);
         //background.drawString("Intro world. Hit <enter> to start game...", WORLD_WIDTH / 2 - 100, WORLD_HEIGHT / 2);
     }

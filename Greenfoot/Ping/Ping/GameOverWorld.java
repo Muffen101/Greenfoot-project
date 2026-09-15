@@ -16,9 +16,18 @@ public class GameOverWorld extends World
     public GameOverWorld()
     {
         super(WORLD_WIDTH, WORLD_HEIGHT, 1); 
-        GreenfootImage background = getBackground();
-        background.setColor(Color.BLACK);
-        background.drawString("GAME OVER!!!", WORLD_WIDTH / 2 - 100, WORLD_HEIGHT / 2);
+        GreenfootImage gameOverCover = new GreenfootImage("Mr._Krabs_29.png");
+        gameOverCover.scale (getWidth(), getHeight());
+            
+        gameOverCover.setColor(Color.RED);
+        gameOverCover.setFont(new Font("Arial", true, false, 30));
+        gameOverCover.drawString("GAME OVER!!!", WORLD_WIDTH / 2 - 100, WORLD_HEIGHT / 2);
+        gameOverCover.drawString("Press Enter To Restart", WORLD_WIDTH / 2 - 150, WORLD_HEIGHT / 2 + 50);
+        
+        setBackground(gameOverCover);
+        
+        /*background.setColor(Color.BLACK);
+        background.drawString("GAME OVER!!!", WORLD_WIDTH / 2 - 100, WORLD_HEIGHT / 2);*/
     }
     
     public void act()

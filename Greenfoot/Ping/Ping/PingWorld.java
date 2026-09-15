@@ -20,6 +20,9 @@ public class PingWorld extends World
     public PingWorld(boolean gameStarted)
     {
         super(WORLD_WIDTH, WORLD_HEIGHT, 1); 
+        GreenfootImage bg = new GreenfootImage("ChumbBucketGameBG.png");
+        bg.scale(getWidth(), getHeight());
+        setBackground(bg);
         if (gameStarted)
         {
             scoreboard = new Scoreboard(); //adds scoreboard top left
