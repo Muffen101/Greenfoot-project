@@ -1,11 +1,6 @@
 import greenfoot.*;
-
-
 /**
  * A Ball is a thing that bounces of walls and paddles (or at least i should).
- * 
- * @author The teachers 
- * @version 1
  */
 public class Ball extends Actor
 {
@@ -93,16 +88,9 @@ public class Ball extends Actor
         return (getY() >= getWorld().getHeight() - BALL_SIZE/2);
     }
     
-    private boolean shouldPassThrough() //checks to see if the ball is viable to pass through the paddle at the specific angle
-    {
-        return getRotation() <= 180;
-    }
-    
     /**
-     * Checks for collision with any Paddle classes.
+     * Checks for collision with any type of Paddle classes.
      * Then reverts in a vertical direction after being in contact, and handles bounce/pass through logic.
-     * 
-     * Task 3 - ball bounces off the self moving paddle from below and it passes through from the top.
      */
     private void checkBounceOffPaddle() 
     {
@@ -166,7 +154,7 @@ public class Ball extends Actor
         {
             if (!hasBouncedVertically)
             {
-                revertVertically(false);
+                revertVertically(false); //only physical deflection, point tracking handled by checkRestart()
             }
         }
     }
@@ -174,11 +162,11 @@ public class Ball extends Actor
     /**
      * Check to see if the ball should be restarted.
      * If touching the floor the ball is restarted in initial position and speed.
-     * 
+     * Also checks for life deduction and win/loss game.
      */
-    private void checkRestart() //update
+    private void checkRestart()
     {
-        if (isTouchingFloor())
+        if (isTouchingFloor()) //if the ball passes the players paddle
         {
             PingWorld world = (PingWorld) getWorld();
             
@@ -188,22 +176,24 @@ public class Ball extends Actor
                 
                 if (scoreboard != null)
                 {
-                    boolean stillAlive = scoreboard.loseLife();
+                    boolean stillAlive = scoreboard.loseLife(); //deduct 1 life from scoreboard
                     
                     if (stillAlive)
                     {
                         failSound();
-                        init();
+                        init(); //resets the ball's location and parameters for the next attempt
                         setLocation(getWorld().getWidth() / 2, getWorld().getHeight() / 2);
                     }
                     else
                     {
-                        Greenfoot.setWorld(new GameOverWorld());
+                        world.stopMusic(); //this stops the music before swapping worlds
+                        failSound();
+                        Greenfoot.setWorld(new GameOverWorld()); //else if you have no lives left, then switch to the GameOverWorld() screen
                     }
                 }
             }
         }
-        else if (isTouchingCeiling()) 
+        else if (isTouchingCeiling()) //if the ball is scored by the player
         {  
             scoreSound();
             PingWorld world =(PingWorld) getWorld();
@@ -214,12 +204,13 @@ public class Ball extends Actor
                 
                 if (hasWon)
                 {
-                    Greenfoot.setWorld(new WinWorld()); //changes to win screen if conditions are met
+                    world.stopMusic();
+                    Greenfoot.setWorld(new WinWorld()); //changes to winWorld() screen if conditions are met
                     winSound();
                 }
                 else
                 {
-                    init();
+                    init(); //if none of these are met, then reset ball for next round
                     setLocation(getWorld().getWidth() / 2, getWorld().getHeight() / 2); //if conditions are not met, then reset ball in center for the next round
                 }
             }
@@ -240,13 +231,11 @@ public class Ball extends Actor
         GreenfootSound contactSound = new GreenfootSound("bo-womp.mp3");
         contactSound.setVolume(10); //adjusted the volume to the tester because it was too loud
         contactSound.play();
-        
-        /*PingWorld world = (PingWorld) getWorld();
-        this.speed = world.ballBounced();*/
     }
 
     /**
      * Bounces the ball back from a horizontal surface.
+     * Checks for the specific conditions of losing, winning or alternate ending, and resets ball in center for next round.
      */
     private void revertVertically(boolean countScore)
     {
@@ -262,10 +251,23 @@ public class Ball extends Actor
         {
             PingWorld world = (PingWorld) getWorld();
             this.speed = world.ballBounced(); //request updated ball speed from GameManager
+            
+            int MAX_SPEED = 12;
+            if (this.speed >= MAX_SPEED) //if the ball gets too fast, it explodes
+            {
+                if (world != null)
+                {
+                    world.stopMusic();
+                }
+               Greenfoot.setWorld(new ExplodeWorld()); 
+            }
         }
     }
     
-    private void failSound() //update
+    /**
+     * Plays sound effects upon losing a point/life or the game
+     */
+    private void failSound()
     {
         GreenfootSound gameOverVoice = new GreenfootSound("KrabsMoney.mp3");
         GreenfootSound gameOverSound = new GreenfootSound("spongebob-fail.mp3");
@@ -275,13 +277,19 @@ public class Ball extends Actor
         gameOverSound.play();
     }
     
-    private void scoreSound() //update
+    /**
+     * Plays sound effect upon scoring a point against the opponent
+     */
+    private void scoreSound()
     {
         GreenfootSound pointSound = new GreenfootSound("kaching.mp3");
         pointSound.setVolume(15);
         pointSound.play();
     }
     
+    /**
+     * Plays sound effect upon winning the game and have scored the required amount to win
+     */
     private void winSound()
     {
         GreenfootSound victorySound = new GreenfootSound("VictorySound.mp3");

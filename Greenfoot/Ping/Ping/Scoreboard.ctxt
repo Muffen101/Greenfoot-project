@@ -1,20 +1,22 @@
 #BlueJ class context
 comment0.target=Scoreboard
-comment0.text=\r\n\ Displays\ score\ and\ current\ game\ level\ at\ the\ top\ of\ the\ screen\r\n\ \r\n
+comment0.text=\r\n\ Displays\ score\ and\ current\ game\ level\ at\ the\ top\ of\ the\ screen.\r\n\ Scoreboard\ manages\ lives,\ points,\ level\ display\ and\ win\ checks.\r\n
 comment1.params=
 comment1.target=Scoreboard()
+comment1.text=\r\n\ Updates\ and\ runs\ the\ score\ UI\ display\r\n
 comment2.params=newScore
 comment2.target=void\ setScore(int)
 comment3.params=
 comment3.target=boolean\ addPoint()
-comment3.text=\r\n\ Increments\ player\ points\ and\ checks\ if\ win\ target\ was\ met.\r\n
+comment3.text=\r\n\ Increments\ player\ points\ and\ returns\ true\ if\ win\ target\ was\ met.\r\n
 comment4.params=
 comment4.target=boolean\ loseLife()
+comment4.text=\r\n\ Deducts\ 1\ life\ and\ returns\ false\ if\ the\ player\ has\ lost\ all\ of\ their\ lives.\r\n
 comment5.params=newLevel
 comment5.target=void\ setLevel(int)
 comment6.params=
 comment6.target=void\ updateImage()
-comment6.text=\r\n\ Redraws\ the\ score\ text\ graphic\ on\ the\ screen\ whenever\ score\ or\ level\ changes.\r\n
+comment6.text=\r\n\ Redraws\ the\ score\ text\ graphic\ on\ the\ screen\ whenever\ lives,\ points,\ bounces\ or\ level\ changes.\r\n
 comment7.params=
 comment7.target=int\ getScore()
 comment8.params=

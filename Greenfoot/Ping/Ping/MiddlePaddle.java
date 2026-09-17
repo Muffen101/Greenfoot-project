@@ -3,10 +3,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
  * Write a description of class MiddlePaddle here.
  * 
- * Task 2 - added a self moving paddle that enters the world at a random position and moves horizontally. The paddle does respawn at a random height when removed.
- * 
- * @author (your name) 
- * @version (a version number or a date)
+ * Added a self moving paddle that enters the world at a random position and moves horizontally. The paddle does respawn at a random height when removed.
  */
 public class MiddlePaddle extends Paddle
 {

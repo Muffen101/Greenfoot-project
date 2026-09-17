@@ -1,10 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class WinWorld here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
+ * The world screen of when the winning conditions are met, then run this screen.
  */
 public class WinWorld extends World
 {

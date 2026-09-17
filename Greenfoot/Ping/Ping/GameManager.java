@@ -1,7 +1,5 @@
 /**
  * Tracks bounce counts, updates the scoreboard and speeds up the ball every 5 bounces made on the players paddle.
- * 
- * 
  */
 public class GameManager  
 {
@@ -32,7 +30,7 @@ public class GameManager
             return currentSpeed;
         }
         totalBounces++; //adds to the main score
-        bounceCounter++; //adds to the counted tracker towards the next level speed boost from 0 to 10
+        bounceCounter++; //adds to the counted tracker towards the next level speed boost from 0 to 5
         
         if (scoreboard != null) //sends updated score to text display
         {
@@ -42,7 +40,7 @@ public class GameManager
         if (bounceCounter == 5) //checks if player has completed the amount of bounces
         {
             currentSpeed++; //adds 1 in speed
-            bounceCounter = 0; //reset counter to 0 so we count 10 more bounces
+            bounceCounter = 0; //reset counter to 0 so we count 5 more bounces
             
             if (scoreboard != null)
             {

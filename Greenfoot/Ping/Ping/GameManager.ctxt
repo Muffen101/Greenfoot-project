@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=GameManager
-comment0.text=\r\n\ Tracks\ bounce\ counts,\ updates\ the\ scoreboard\ and\ speeds\ up\ the\ ball\ every\ 5\ bounces\ made\ on\ the\ players\ paddle.\r\n\ \r\n\ \r\n
+comment0.text=\r\n\ Tracks\ bounce\ counts,\ updates\ the\ scoreboard\ and\ speeds\ up\ the\ ball\ every\ 5\ bounces\ made\ on\ the\ players\ paddle.\r\n
 comment1.params=scoreboard
 comment1.target=GameManager(Scoreboard)
 comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ GameManager\r\n

@@ -1,8 +1,8 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Displays score and current game level at the top of the screen
- * 
+ * Displays score and current game level at the top of the screen.
+ * Scoreboard manages lives, points, level display and win checks.
  */
 public class Scoreboard extends Actor
 {
@@ -10,8 +10,11 @@ public class Scoreboard extends Actor
     private int level = 1;
     private int playerPoint = 0;
     private int lives = 3; 
-    private static int winScore = 5;
+    private static int winScore = 5; //winning target to score
     
+    /**
+     * Updates and runs the score UI display
+     */
     public Scoreboard()
     {
         updateImage();
@@ -24,7 +27,7 @@ public class Scoreboard extends Actor
     }
     
     /**
-     * Increments player points and checks if win target was met.
+     * Increments player points and returns true if win target was met.
      */
     public boolean addPoint()
     {
@@ -33,6 +36,9 @@ public class Scoreboard extends Actor
         return playerPoint >= winScore; //returns true if player has reached the winScore
     }
     
+    /**
+     * Deducts 1 life and returns false if the player has lost all of their lives.
+     */
     public boolean loseLife()
     {
         lives--;
@@ -40,9 +46,9 @@ public class Scoreboard extends Actor
         
         if (lives <= 0)
         {
-            return false; //game over
+            return false; //if the player has less or equal to 0 lives left, then game over
         }
-        return true; //player still alive
+        return true; //player still alive and plays with the rest of the lives left
     }
     
     public void setLevel(int newLevel)
@@ -52,7 +58,7 @@ public class Scoreboard extends Actor
     }
     
     /**
-     * Redraws the score text graphic on the screen whenever score or level changes.
+     * Redraws the score text graphic on the screen whenever lives, points, bounces or level changes.
      */
     private void updateImage()
     {

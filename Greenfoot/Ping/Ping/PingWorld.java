@@ -4,9 +4,6 @@ import greenfoot.*;
 /**
  * The Ping World is where Balls and Paddles meet to play pong.
  * Main game world setup for objects, manager and scoreboard.
- * 
- * @author The teachers 
- * @version 1
  */
 public class PingWorld extends World
 {
@@ -14,6 +11,7 @@ public class PingWorld extends World
     private static final int WORLD_HEIGHT = 700;
     private Scoreboard scoreboard;
     private GameManager gameManager;
+    private GreenfootSound BGM = new GreenfootSound("The Krusty Krab Theme.mp3"); //adding BGM (background music) to the game
     /**
      * Constructor for objects of class PingWorld.
      */
@@ -23,6 +21,7 @@ public class PingWorld extends World
         GreenfootImage bg = new GreenfootImage("ChumbBucketGameBG.png");
         bg.scale(getWidth(), getHeight());
         setBackground(bg);
+        BGM.setVolume(10);
         
         if (gameStarted)
         {
@@ -45,6 +44,10 @@ public class PingWorld extends World
             
             addObject(new TopPaddle(100, 20), 60, WORLD_HEIGHT - 650);
             
+            if (BGM != null && !BGM.isPlaying())
+            {
+                BGM.playLoop();
+            }
         }
         else
         {
@@ -52,7 +55,23 @@ public class PingWorld extends World
         }
     }
     
-    public int ballBounced() //update
+    public void stopped()
+    {
+        if (BGM != null && BGM.isPlaying())
+        {
+            BGM.stop();
+        }
+    }
+    
+    public void stopMusic()
+    {
+        if (BGM != null)
+        {
+            BGM.stop();
+        }
+    }
+    
+    public int ballBounced()
     {
         if (gameManager != null)
         {

@@ -3,13 +3,10 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
  * Computer controlled paddle positioned at the top ceiling.
  * This paddle tracks the ball's movement when moving towards it.
- * 
- * @author (your name) 
- * @version (a version number or a date)
  */
-public class TopPaddle extends Paddle //update
+public class TopPaddle extends Paddle
 {
-    private static int paddleSpeed = 1;
+    private static int paddleSpeed = 2;
     private Ball ball;
     
     public TopPaddle(int width, int height)
