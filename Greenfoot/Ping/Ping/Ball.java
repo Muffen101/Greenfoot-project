@@ -252,7 +252,7 @@ public class Ball extends Actor
             PingWorld world = (PingWorld) getWorld();
             this.speed = world.ballBounced(); //request updated ball speed from GameManager
             
-            int MAX_SPEED = 12;
+            int MAX_SPEED = 13;
             if (this.speed >= MAX_SPEED) //if the ball gets too fast, it explodes
             {
                 if (world != null)
