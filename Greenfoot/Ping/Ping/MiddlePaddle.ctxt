@@ -12,5 +12,5 @@ comment4.params=xPosition
 comment4.target=void\ respawnOnSide(int)
 comment4.text=\r\n\ Helper\ method\ to\ recalculate\ a\ safe\ random\ vertical\ spawn\ coordinate.\r\n
 comment5.params=
-comment5.target=void\ createDefaultImage()
+comment5.target=void\ moneyBillImage()
 numComments=6

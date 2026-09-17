@@ -28,5 +28,4 @@ public class IntroWorld extends World
             Greenfoot.setWorld(new PingWorld(true));
         }
     }
-    
 }

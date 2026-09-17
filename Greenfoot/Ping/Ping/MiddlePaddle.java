@@ -11,7 +11,7 @@ public class MiddlePaddle extends Paddle
     {
         super(width, height); //calls on the Paddle superclass constructor
         this.dx = 1;
-        createDefaultImage(); //changes image to the picked image
+        moneyBillImage(); //changes image to the picked image
     }
     
     /**
@@ -50,12 +50,10 @@ public class MiddlePaddle extends Paddle
         setLocation(xPosition, randomY); 
     }
     
-    private void createDefaultImage()
+    private void moneyBillImage()
     {
         GreenfootImage image = new GreenfootImage("MoneyBill.png");
-        image.scale(width, height); //check gap between ball and hitbox later!!!!!!!!!
-        //image.setColor(Color.BLACK);
-        ///image.fill();
+        image.scale(width, height);
         setImage(image);
     }
 }

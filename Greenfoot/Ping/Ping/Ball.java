@@ -227,10 +227,7 @@ public class Ball extends Actor
         int randomness = Greenfoot.getRandomNumber(BOUNCE_DEVIANCE_MAX)- BOUNCE_DEVIANCE_MAX / 2; //picks a small random number between -2 and +2 degrees
         setRotation((180 - getRotation()+ randomness + 360) % 360); //mirror the rotation horizontal angle (180-current) and adds a small random variance so the ball doesn't get stuck in an endless angle loop
         hasBouncedHorizontally = true; //locks horizontal bounce until the ball exits the side edge
-        
-        GreenfootSound contactSound = new GreenfootSound("bo-womp.mp3");
-        contactSound.setVolume(10); //adjusted the volume to the tester because it was too loud
-        contactSound.play();
+        hitSound();
     }
 
     /**
@@ -242,10 +239,7 @@ public class Ball extends Actor
         int randomness = Greenfoot.getRandomNumber(BOUNCE_DEVIANCE_MAX)- BOUNCE_DEVIANCE_MAX / 2;
         setRotation((360 - getRotation()+ randomness + 360) % 360);
         hasBouncedVertically = true; //lock vertical bounce so collision isn't triggered twice on the same bounce
-        
-        GreenfootSound contactSound = new GreenfootSound("bo-womp.mp3");
-        contactSound.setVolume(10); //adjusted the volume to the tester because it was too loud
-        contactSound.play();
+        hitSound();
         
         if (countScore) //notifies the world to update the score and ball speed if hitting the players/main paddle
         {
@@ -262,6 +256,13 @@ public class Ball extends Actor
                Greenfoot.setWorld(new ExplodeWorld()); 
             }
         }
+    }
+    
+    private void hitSound()
+    {
+        GreenfootSound contactSound = new GreenfootSound("bo-womp.mp3");
+        contactSound.setVolume(10); //adjusted the volume to the tester because it was too loud
+        contactSound.play();
     }
     
     /**

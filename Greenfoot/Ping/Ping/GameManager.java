@@ -69,5 +69,4 @@ public class GameManager
     {
         this.gameIsRunning = running;
     }
-
 }
