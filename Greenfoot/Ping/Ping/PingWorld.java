@@ -23,10 +23,11 @@ public class PingWorld extends World
         GreenfootImage bg = new GreenfootImage("ChumbBucketGameBG.png");
         bg.scale(getWidth(), getHeight());
         setBackground(bg);
+        
         if (gameStarted)
         {
             scoreboard = new Scoreboard(); //adds scoreboard top left
-            addObject(scoreboard, 120, 30);
+            addObject(scoreboard, 150, 30);
             
             gameManager = new GameManager(scoreboard); //initializes GameManager with scoreboard
             
@@ -41,6 +42,9 @@ public class PingWorld extends World
             int randomX = Greenfoot.getRandomNumber(WORLD_WIDTH);
             int randomY = 50 + Greenfoot.getRandomNumber(400);
             addObject(new MiddlePaddle(80,15), randomX, randomY); //adds self moving paddle at a random height between Y = 50 and 450
+            
+            addObject(new TopPaddle(100, 20), 60, WORLD_HEIGHT - 650);
+            
         }
         else
         {
@@ -48,7 +52,7 @@ public class PingWorld extends World
         }
     }
     
-    public int ballBounced()
+    public int ballBounced() //update
     {
         if (gameManager != null)
         {
@@ -56,6 +60,11 @@ public class PingWorld extends World
         }
         
         return 2; //returning default speed to 2
+    }
+    
+    public Scoreboard getScoreboard()
+    {
+        return scoreboard;
     }
     
     public GameManager getGameManager()

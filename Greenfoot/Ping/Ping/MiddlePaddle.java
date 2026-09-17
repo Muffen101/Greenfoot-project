@@ -33,14 +33,17 @@ public class MiddlePaddle extends Paddle
         {
             PingWorld world = (PingWorld) getWorld();
             world.removeObject(this); //removing the instance from the world
-            world.addObject(new MiddlePaddle(100,20), 0, Greenfoot.getRandomNumber(200) + 100); //spawns the new paddle at x=0 and random Y position
+            
+            //randomizer for width of the self moving paddle, which gives the game different sizes of moving paddles where the width = 100 is a minimum width
+            int randomWidth = 100 + Greenfoot.getRandomNumber(70);
+            world.addObject(new MiddlePaddle(randomWidth, 70), 0, Greenfoot.getRandomNumber(200) + 100); //spawns the new paddle at x=0 and random Y position
         }
     }
     
     /**
      * Helper method to recalculate a safe random vertical spawn coordinate.
      */
-    private void respawnOnSide(int xPosition)
+    private void respawnOnSide(int xPosition) //
     {
         int minY = 50; //avoids spawning too close to the top ceiling
         int maxY = getWorld().getHeight() - 250; //keeps distance from the main players paddle
@@ -53,7 +56,7 @@ public class MiddlePaddle extends Paddle
     private void createDefaultImage()
     {
         GreenfootImage image = new GreenfootImage("MoneyBill.png");
-        image.scale(130, 70); //check gap between ball and hitbox later!!!!!!!!!
+        image.scale(width, height); //check gap between ball and hitbox later!!!!!!!!!
         //image.setColor(Color.BLACK);
         ///image.fill();
         setImage(image);

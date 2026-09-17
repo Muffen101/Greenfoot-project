@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.target=TopPaddle
+comment0.text=\r\n\ Computer\ controlled\ paddle\ positioned\ at\ the\ top\ ceiling.\r\n\ This\ paddle\ tracks\ the\ ball's\ movement\ when\ moving\ towards\ it.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=width\ height
+comment1.target=TopPaddle(int,\ int)
+comment2.params=
+comment2.target=void\ act()
+comment3.params=
+comment3.target=void\ trackBall()
+comment4.params=
+comment4.target=void\ createImage()
+numComments=5

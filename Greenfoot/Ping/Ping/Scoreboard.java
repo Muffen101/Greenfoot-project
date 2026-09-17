@@ -8,6 +8,9 @@ public class Scoreboard extends Actor
 {
     private int score = 0;
     private int level = 1;
+    private int playerPoint = 0;
+    private int lives = 3; 
+    private static int winScore = 5;
     
     public Scoreboard()
     {
@@ -18,6 +21,28 @@ public class Scoreboard extends Actor
     {
         this.score = newScore;
         updateImage();
+    }
+    
+    /**
+     * Increments player points and checks if win target was met.
+     */
+    public boolean addPoint()
+    {
+        playerPoint++;
+        updateImage();
+        return playerPoint >= winScore; //returns true if player has reached the winScore
+    }
+    
+    public boolean loseLife()
+    {
+        lives--;
+        updateImage();
+        
+        if (lives <= 0)
+        {
+            return false; //game over
+        }
+        return true; //player still alive
     }
     
     public void setLevel(int newLevel)
@@ -31,7 +56,7 @@ public class Scoreboard extends Actor
      */
     private void updateImage()
     {
-        String text = "Bounces: " + score + " | Level: " + level; //format string output
+        String text = "Lives: " + lives + " | Point: " + playerPoint + " | Bounces: " + score + " | Level: " + level; //format string output
         GreenfootImage img = new GreenfootImage(text, 18, Color.WHITE, Color.BLACK); //this creates the layout for the image/text, by creating an image out of text
         setImage(img); //applies the image to this
     }

@@ -10,6 +10,7 @@ public class GameManager
     private int totalBounces = 0;
     private int bounceCounter = 0;
     private int currentSpeed = 2;
+    private int countPoints = 0;
 
     /**
      * Constructor for objects of class GameManager

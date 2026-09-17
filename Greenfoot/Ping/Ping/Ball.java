@@ -19,6 +19,7 @@ public class Ball extends Actor
     private boolean hasBouncedVertically;
     private int delay;
     private GameManager gameManager;
+    private Scoreboard scoreboard;
 
     /**
      * Contructs the ball and sets it in motion!
@@ -32,6 +33,10 @@ public class Ball extends Actor
     public void setGameManager(GameManager manager)
     {
         this.gameManager = manager;
+        if (manager != null)
+        {
+            this.speed = manager.getSpeed(); 
+        }
     }
 
     /**
@@ -60,7 +65,7 @@ public class Ball extends Actor
             checkBounceOffWalls();
             checkBounceOffCeiling();
             checkBounceOffPaddle(); //checking for collision with any paddle object
-            checkRestart();
+            checkRestart(); //handles win, loss and life tracking transition to the specific worlds
         }
     }    
 
@@ -108,9 +113,20 @@ public class Ball extends Actor
                 revertVertically(false); 
             }
         }
-        else if (isTouching(Paddle.class)) //checks the players paddle and that the ball always bounces off the players paddle no matter what direction the ball comes from
+        /**
+         * Checks the players paddle and that the ball always bounces off the players paddle no matter what direction the ball comes from.
+         * And adjusted the hitbox for the player paddle if the Y position of the ball is greater than 617.
+         */
+        else if (isTouching(Paddle.class) && (getY() > 617))
         {
             if (!hasBouncedVertically) //bounce off player paddle and score points
+            {
+                revertVertically(true);
+            }
+        }
+        else if (isTouching(TopPaddle.class) && (getY() < 83))
+        {
+            if (!hasBouncedVertically)
             {
                 revertVertically(true);
             }
@@ -148,7 +164,7 @@ public class Ball extends Actor
     {
         if (isTouchingCeiling())
         {
-            if (! hasBouncedVertically)
+            if (!hasBouncedVertically)
             {
                 revertVertically(false);
             }
@@ -160,20 +176,53 @@ public class Ball extends Actor
      * If touching the floor the ball is restarted in initial position and speed.
      * 
      */
-    private void checkRestart()
+    private void checkRestart() //update
     {
         if (isTouchingFloor())
         {
-            GreenfootSound gameOverSound = new GreenfootSound("spongebob-fail.mp3");
-            gameOverSound.setVolume(100);
-            gameOverSound.play();
+            PingWorld world = (PingWorld) getWorld();
             
-            Greenfoot.setWorld(new GameOverWorld());
-            /*else
+            if (world != null)
             {
-                init();
-                setLocation(getWorld().getWidth() / 2, getWorld().getHeight() / 2); //FOR LATER WITH LIFES AND SUCH!!!!!!!!!!
-            }*/ //remove this? unneccesary??
+                Scoreboard scoreboard = world.getScoreboard();
+                
+                if (scoreboard != null)
+                {
+                    boolean stillAlive = scoreboard.loseLife();
+                    
+                    if (stillAlive)
+                    {
+                        failSound();
+                        init();
+                        setLocation(getWorld().getWidth() / 2, getWorld().getHeight() / 2);
+                    }
+                    else
+                    {
+                        Greenfoot.setWorld(new GameOverWorld());
+                    }
+                }
+            }
+        }
+        else if (isTouchingCeiling()) 
+        {  
+            scoreSound();
+            PingWorld world =(PingWorld) getWorld();
+            
+            if (world != null && world.getScoreboard() != null)
+            {
+                boolean hasWon = world.getScoreboard().addPoint(); //add a point to scoreboard and checks if win conditions are met
+                
+                if (hasWon)
+                {
+                    Greenfoot.setWorld(new WinWorld()); //changes to win screen if conditions are met
+                    winSound();
+                }
+                else
+                {
+                    init();
+                    setLocation(getWorld().getWidth() / 2, getWorld().getHeight() / 2); //if conditions are not met, then reset ball in center for the next round
+                }
+            }
         }
     }
 
@@ -189,7 +238,7 @@ public class Ball extends Actor
         hasBouncedHorizontally = true; //locks horizontal bounce until the ball exits the side edge
         
         GreenfootSound contactSound = new GreenfootSound("bo-womp.mp3");
-        contactSound.setVolume(100); //adjusted the volume to the tester because it was too loud
+        contactSound.setVolume(10); //adjusted the volume to the tester because it was too loud
         contactSound.play();
         
         /*PingWorld world = (PingWorld) getWorld();
@@ -197,7 +246,7 @@ public class Ball extends Actor
     }
 
     /**
-     * Bounces the bal lback from a horizontal surface.
+     * Bounces the ball back from a horizontal surface.
      */
     private void revertVertically(boolean countScore)
     {
@@ -206,7 +255,7 @@ public class Ball extends Actor
         hasBouncedVertically = true; //lock vertical bounce so collision isn't triggered twice on the same bounce
         
         GreenfootSound contactSound = new GreenfootSound("bo-womp.mp3");
-        contactSound.setVolume(100); //adjusted the volume to the tester because it was too loud
+        contactSound.setVolume(10); //adjusted the volume to the tester because it was too loud
         contactSound.play();
         
         if (countScore) //notifies the world to update the score and ball speed if hitting the players/main paddle
@@ -214,6 +263,35 @@ public class Ball extends Actor
             PingWorld world = (PingWorld) getWorld();
             this.speed = world.ballBounced(); //request updated ball speed from GameManager
         }
+    }
+    
+    private void failSound() //update
+    {
+        GreenfootSound gameOverVoice = new GreenfootSound("KrabsMoney.mp3");
+        GreenfootSound gameOverSound = new GreenfootSound("spongebob-fail.mp3");
+        gameOverVoice.setVolume(20);
+        gameOverSound.setVolume(10);
+        gameOverVoice.play();
+        gameOverSound.play();
+    }
+    
+    private void scoreSound() //update
+    {
+        GreenfootSound pointSound = new GreenfootSound("kaching.mp3");
+        pointSound.setVolume(15);
+        pointSound.play();
+    }
+    
+    private void winSound()
+    {
+        GreenfootSound victorySound = new GreenfootSound("VictorySound.mp3");
+        victorySound.setVolume(15);
+        victorySound.play();
+    }
+    
+    public Scoreboard getScoreboard()
+    {
+        return scoreboard;
     }
 
     /**
