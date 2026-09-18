@@ -112,7 +112,7 @@ public class Ball extends Actor
                 revertVertically(true);
             }
         }
-        else if (isTouching(TopPaddle.class) && (getY() < 83))
+        else if (isTouching(TopPaddle.class) && (getY() < 83)) //checks hitbox here as well just like it is done with paddle.class
         {
             if (!hasBouncedVertically)
             {

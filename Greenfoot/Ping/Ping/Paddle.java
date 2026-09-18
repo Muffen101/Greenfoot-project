@@ -5,7 +5,7 @@ import greenfoot.*;
  */
 public class Paddle extends Actor
 {
-    protected int width; 
+    protected int width; //changed from private to protected as it allows subclasses to access them directly and inherit it.
     protected int height; 
     protected int dx; 
     /**

@@ -1,8 +1,6 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class MiddlePaddle here.
- * 
  * Added a self moving paddle that enters the world at a random position and moves horizontally. The paddle does respawn at a random height when removed.
  */
 public class MiddlePaddle extends Paddle
@@ -40,7 +38,7 @@ public class MiddlePaddle extends Paddle
     /**
      * Helper method to recalculate a safe random vertical spawn coordinate.
      */
-    private void respawnOnSide(int xPosition) //
+    private void respawnOnSide(int xPosition)
     {
         int minY = 50; //avoids spawning too close to the top ceiling
         int maxY = getWorld().getHeight() - 250; //keeps distance from the main players paddle

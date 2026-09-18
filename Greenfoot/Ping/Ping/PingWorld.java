@@ -1,6 +1,4 @@
 import greenfoot.*;
-
-
 /**
  * The Ping World is where Balls and Paddles meet to play pong.
  * Main game world setup for objects, manager and scoreboard.

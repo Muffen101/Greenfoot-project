@@ -9,7 +9,7 @@ public class Scoreboard extends Actor
     private int score = 0;
     private int level = 1;
     private int playerPoint = 0;
-    private int lives = 3; 
+    private int lives = 3; //amount of times the player can lose lives
     private static int winScore = 5; //winning target to score
     
     /**
