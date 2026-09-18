@@ -35,7 +35,7 @@ public class Ball extends Actor
     }
 
     /**
-     * Creates and sets an image of a black ball to this actor.
+     * Creates and sets an image of SpongeBob ball to this actor.
      */
     private void createImage()
     {
